@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../models/appointment';
 
 @Component({
@@ -6,15 +6,18 @@ import { Appointment } from '../models/appointment';
   templateUrl: './appointment-list.component.html',
   styleUrls: ['./appointment-list.component.css'],
 })
-export class AppointmentListComponent {
+export class AppointmentListComponent implements OnInit {
   newAppointment: Appointment = {
     id: 0,
     title: '',
     date: new Date(),
   };
-  appointments: Appointment[] = JSON.parse(
-    window.localStorage.getItem('appointments') || '[]'
-  );
+  ngOnInit(): void {
+    this.appointments = JSON.parse(
+      window.localStorage.getItem('appointments') || '[]'
+    );
+  }
+  appointments: Appointment[] = [];
   clearAppointment() {
     this.newAppointment = { id: 0, title: '', date: new Date() };
   }
